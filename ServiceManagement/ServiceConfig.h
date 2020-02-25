@@ -17,6 +17,9 @@ namespace ServiceManagement {
 	struct ServiceConfig {
 		ServiceConfig(LPQUERY_SERVICE_CONFIG config = nullptr) noexcept;
 		
+		ServiceType m_Type;
+		ServiceStartType m_StartType;
+		ServiceErrorControl m_ErrorControl;
 		std::optional<ServiceString> m_StartName;
 		std::optional<ServiceString> m_DisplayName;
 	};

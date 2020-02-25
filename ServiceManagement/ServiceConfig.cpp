@@ -5,9 +5,15 @@
 namespace ServiceManagement {
 	ServiceConfig::ServiceConfig(LPQUERY_SERVICE_CONFIG config) noexcept {
 		if (config) {
+			m_Type = (ServiceType) config->dwServiceType;
+			m_StartType = (ServiceStartType) config->dwStartType;
+			m_ErrorControl = (ServiceErrorControl) config->dwErrorControl;
 			m_StartName = config->lpServiceStartName;
 			m_DisplayName = config->lpDisplayName;
 		} else {
+			m_Type = ServiceType::NoChange;
+			m_StartType = ServiceStartType::NoChange;
+			m_ErrorControl = ServiceErrorControl::NoChange;
 			m_StartName = nullptr;
 			m_DisplayName = nullptr;
 		}
