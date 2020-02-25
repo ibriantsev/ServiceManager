@@ -28,6 +28,15 @@ namespace ServiceManagement {
 			ServiceResult getErrorControl(ServiceErrorControl &errorControl) {
 				return m_Config.getErrorControl(errorControl);
 			}
+			ServiceResult getBinaryPathName(ServiceString &binaryPathName) {
+				return m_Config.getBinaryPathName(binaryPathName);
+			}
+			ServiceResult getLoadOrderGroup(ServiceString &loadOrderGroup) {
+				return m_Config.getLoadOrderGroup(loadOrderGroup);
+			}
+			ServiceResult getTagId(DWORD &tagId) {
+				return m_Config.getTagId(tagId);
+			}
 			ServiceResult getStartName(ServiceString &startName) {
 				return m_Config.getStartName(startName);
 			}

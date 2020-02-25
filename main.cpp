@@ -22,6 +22,7 @@ void testExistingService(void) {
 	ServiceStartType startType;
 	ServiceErrorControl errorControl;
 	ServiceString str;
+	DWORD tagId;
 	ServiceResult res;
 	
 	res = testService.getType(type);
@@ -35,6 +36,18 @@ void testExistingService(void) {
 	res = testService.getErrorControl(errorControl);
 	assert(res);
 	assert(errorControl == ServiceErrorControl::Normal);
+	
+	res = testService.getBinaryPathName(str);
+	assert(res);
+	assert(str == L"C:\\Windows\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p");
+	
+	res = testService.getLoadOrderGroup(str);
+	assert(res);
+	assert(str == L"TDI");
+	
+	res = testService.getTagId(tagId);
+	assert(res);
+	assert(tagId == 0);
 	
 	res = testService.getStartName(str);
 	assert(res);

@@ -5,17 +5,18 @@
 namespace ServiceManagement {
 	ServiceConfig::ServiceConfig(LPQUERY_SERVICE_CONFIG config) noexcept {
 		if (config) {
-			m_Type = (ServiceType) config->dwServiceType;
-			m_StartType = (ServiceStartType) config->dwStartType;
-			m_ErrorControl = (ServiceErrorControl) config->dwErrorControl;
-			m_StartName = config->lpServiceStartName;
-			m_DisplayName = config->lpDisplayName;
+			m_Type           = (ServiceType) config->dwServiceType;
+			m_StartType      = (ServiceStartType) config->dwStartType;
+			m_ErrorControl   = (ServiceErrorControl) config->dwErrorControl;
+			m_BinaryPathName = config->lpBinaryPathName;
+			m_LoadOrderGroup = config->lpLoadOrderGroup;
+			m_TagId          = config->dwTagId;
+			m_StartName      = config->lpServiceStartName;
+			m_DisplayName    = config->lpDisplayName;
 		} else {
-			m_Type = ServiceType::NoChange;
-			m_StartType = ServiceStartType::NoChange;
-			m_ErrorControl = ServiceErrorControl::NoChange;
-			m_StartName = nullptr;
-			m_DisplayName = nullptr;
+			m_Type           = ServiceType::NoChange;
+			m_StartType      = ServiceStartType::NoChange;
+			m_ErrorControl   = ServiceErrorControl::NoChange;
 		}
 	}
 	
@@ -74,6 +75,30 @@ namespace ServiceManagement {
 			return sr;
 		
 		errorControl = m_Config.value().m_ErrorControl;
+		return ServiceResult();
+	}
+	ServiceResult ServiceConfigController::getBinaryPathName(ServiceString &binaryPathName) {
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
+		
+		binaryPathName = m_Config.value().m_BinaryPathName.value_or(ServiceString());
+		return ServiceResult();
+	}
+	ServiceResult ServiceConfigController::getLoadOrderGroup(ServiceString &loadOrderGroup) {
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
+		
+		loadOrderGroup = m_Config.value().m_LoadOrderGroup.value_or(ServiceString());
+		return ServiceResult();
+	}
+	ServiceResult ServiceConfigController::getTagId(DWORD &tagId) {
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
+		
+		tagId = m_Config.value().m_TagId.value();
 		return ServiceResult();
 	}
 	ServiceResult ServiceConfigController::getStartName(ServiceString &startName) {

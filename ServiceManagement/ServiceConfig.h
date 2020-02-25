@@ -17,9 +17,12 @@ namespace ServiceManagement {
 	struct ServiceConfig {
 		ServiceConfig(LPQUERY_SERVICE_CONFIG config = nullptr) noexcept;
 		
-		ServiceType m_Type;
-		ServiceStartType m_StartType;
-		ServiceErrorControl m_ErrorControl;
+		ServiceType                  m_Type;
+		ServiceStartType             m_StartType;
+		ServiceErrorControl          m_ErrorControl;
+		std::optional<ServiceString> m_BinaryPathName;
+		std::optional<ServiceString> m_LoadOrderGroup;
+		std::optional<DWORD>         m_TagId;
 		std::optional<ServiceString> m_StartName;
 		std::optional<ServiceString> m_DisplayName;
 	};
@@ -40,6 +43,9 @@ namespace ServiceManagement {
 			ServiceResult getType(ServiceType &type);
 			ServiceResult getStartType(ServiceStartType &startType);
 			ServiceResult getErrorControl(ServiceErrorControl &errorControl);
+			ServiceResult getBinaryPathName(ServiceString &binaryPathName);
+			ServiceResult getLoadOrderGroup(ServiceString &loadOrderGroup);
+			ServiceResult getTagId(DWORD &tagId);
 			ServiceResult getStartName(ServiceString &startName);
 			ServiceResult getDisplayName(ServiceString &displayName);
 		private:
