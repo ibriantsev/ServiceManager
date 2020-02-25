@@ -39,6 +39,8 @@ namespace ServiceManagement {
 			ServiceResult getStartName(ServiceString &startName);
 			ServiceResult getDisplayName(ServiceString &displayName);
 		private:
+			ServiceResult try_refresh(void);
+			
 			SC_HANDLE const m_Handle;
 			std::optional<ServiceConfig> m_Config;
 	};

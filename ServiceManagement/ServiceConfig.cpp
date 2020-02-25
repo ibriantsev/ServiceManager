@@ -44,20 +44,26 @@ namespace ServiceManagement {
 		return ServiceResult();
 	}
 	
+	// aux function to avoid code duplicates
+	ServiceResult ServiceConfigController::try_refresh(void) {
+		if (!m_Config)
+			return refresh();
+		
+		return ServiceResult();
+	}
+	
 	ServiceResult ServiceConfigController::getStartName(ServiceString &startName) {
-		if (!m_Config) {
-			ServiceResult sr = refresh();
-			if (!sr) return sr;
-		}
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
 		
 		startName = m_Config.value().m_StartName.value_or(ServiceString());
 		return ServiceResult();
 	}
 	ServiceResult ServiceConfigController::getDisplayName(ServiceString &displayName) {
-		if (!m_Config) {
-			ServiceResult sr = refresh();
-			if (!sr) return sr;
-		}
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
 		
 		displayName = m_Config.value().m_DisplayName.value_or(ServiceString());
 		return ServiceResult();
