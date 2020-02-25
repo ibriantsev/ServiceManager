@@ -19,6 +19,15 @@ namespace ServiceManagement {
 				::CloseServiceHandle(m_Handle);
 			}
 			
+			ServiceResult getType(ServiceType &type) {
+				return m_Config.getType(type);
+			}
+			ServiceResult getStartType(ServiceStartType &startType) {
+				return m_Config.getStartType(startType);
+			}
+			ServiceResult getErrorControl(ServiceErrorControl &errorControl) {
+				return m_Config.getErrorControl(errorControl);
+			}
 			ServiceResult getStartName(ServiceString &startName) {
 				return m_Config.getStartName(startName);
 			}

@@ -18,8 +18,23 @@ void testExistingService(void) {
 	assert(srvHandle != nullptr);
 	
 	Service testService(srvHandle);
+	ServiceType type;
+	ServiceStartType startType;
+	ServiceErrorControl errorControl;
 	ServiceString str;
 	ServiceResult res;
+	
+	res = testService.getType(type);
+	assert(res);
+	assert(type == ServiceType::Win32ShareProcess);
+	
+	res = testService.getStartType(startType);
+	assert(res);
+	assert(startType == ServiceStartType::Auto);
+	
+	res = testService.getErrorControl(errorControl);
+	assert(res);
+	assert(errorControl == ServiceErrorControl::Normal);
 	
 	res = testService.getStartName(str);
 	assert(res);

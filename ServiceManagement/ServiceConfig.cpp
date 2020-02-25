@@ -52,6 +52,30 @@ namespace ServiceManagement {
 		return ServiceResult();
 	}
 	
+	ServiceResult ServiceConfigController::getType(ServiceType &type) {
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
+		
+		type = m_Config.value().m_Type;
+		return ServiceResult();
+	}
+	ServiceResult ServiceConfigController::getStartType(ServiceStartType &startType) {
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
+		
+		startType = m_Config.value().m_StartType;
+		return ServiceResult();
+	}
+	ServiceResult ServiceConfigController::getErrorControl(ServiceErrorControl &errorControl) {
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
+		
+		errorControl = m_Config.value().m_ErrorControl;
+		return ServiceResult();
+	}
 	ServiceResult ServiceConfigController::getStartName(ServiceString &startName) {
 		ServiceResult sr = try_refresh();
 		if (!sr)

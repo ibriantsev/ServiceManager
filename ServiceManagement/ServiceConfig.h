@@ -36,6 +36,10 @@ namespace ServiceManagement {
 			}
 			
 			ServiceResult refresh(void);
+			
+			ServiceResult getType(ServiceType &type);
+			ServiceResult getStartType(ServiceStartType &startType);
+			ServiceResult getErrorControl(ServiceErrorControl &errorControl);
 			ServiceResult getStartName(ServiceString &startName);
 			ServiceResult getDisplayName(ServiceString &displayName);
 		private:
