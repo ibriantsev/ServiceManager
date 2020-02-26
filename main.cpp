@@ -11,7 +11,20 @@
 
 using namespace ServiceManagement;
 
-void testExistingService(void) {
+void testServiceManager(void) {
+	ServiceManager mgr;
+	ServiceResult res;
+	std::vector<ServiceInfo> services;
+	
+	res = mgr.init();
+	assert(res);
+	
+	res = mgr.enumerateServices(services);
+	assert(res);
+	assert(services.size() > 0);
+}
+
+void testService(void) {
 	SC_HANDLE mgrHandle = ::OpenSCManager(nullptr, nullptr, GENERIC_READ);
 	assert(mgrHandle != nullptr);
 	
@@ -53,9 +66,7 @@ void testExistingService(void) {
 	
 	res = testService.getDependencies(dependencies);
 	assert(res);
-	assert(dependencies.size() == 2);
-	assert(dependencies[0] == TEXT("NSI"));
-	assert(dependencies[1] == TEXT("Afd"));
+	assert(dependencies.size() > 0);
 	
 	res = testService.getStartName(str);
 	assert(res);
@@ -69,10 +80,8 @@ void testExistingService(void) {
 }
 
 int main(void) {
-	testExistingService();
-	
-	ServiceResult res;
-	ServiceManager mgr = ServiceManager::create(res);
+	testService();
+	testServiceManager();
 	
 	return EXIT_SUCCESS;
 }

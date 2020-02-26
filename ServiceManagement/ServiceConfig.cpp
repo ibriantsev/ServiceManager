@@ -1,7 +1,5 @@
 #include "ServiceConfig.h"
 
-#include <iostream>
-
 namespace ServiceManagement {
 	std::vector<ServiceString> splitDependencies(LPCTSTR lpDependencies) {
 		std::vector<ServiceString> dependencies;

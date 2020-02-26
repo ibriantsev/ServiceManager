@@ -60,7 +60,7 @@ namespace ServiceManagement {
 		ServiceInfo(const ServiceString &serviceName, 
 								const ServiceString &displayName, 
 								DWORD processId, 
-								DWORD currentState)
+								DWORD currentState) noexcept
 		: m_ServiceName(serviceName), 
 			m_DisplayName(displayName), 
 			m_ProcessId(processId), 
