@@ -50,4 +50,27 @@ namespace ServiceManagement {
 			SC_HANDLE const m_Handle;
 			ServiceConfigController m_Config;
 	};
+	
+	/**
+	 * Stores basic service information
+	 * 
+	 * Used for enumarating services.
+	 */
+	struct ServiceInfo {
+		ServiceInfo(const ServiceString &serviceName, 
+								const ServiceString &displayName, 
+								DWORD processId, 
+								DWORD currentState)
+		: m_ServiceName(serviceName), 
+			m_DisplayName(displayName), 
+			m_ProcessId(processId), 
+			m_CurrentState(currentState) {
+		}
+		
+		ServiceString m_ServiceName;
+		ServiceString m_DisplayName;
+		DWORD m_ProcessId;
+		DWORD m_CurrentState;
+		DWORD m_Type;
+	};
 } // ServiceManagements

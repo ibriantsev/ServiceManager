@@ -6,6 +6,7 @@
 
 #include <cassert>
 
+#include "ServiceManagement/ServiceManager.h"
 #include "ServiceManagement/Service.h"
 
 using namespace ServiceManagement;
@@ -69,6 +70,9 @@ void testExistingService(void) {
 
 int main(void) {
 	testExistingService();
+	
+	ServiceResult res;
+	ServiceManager mgr = ServiceManager::create(res);
 	
 	return EXIT_SUCCESS;
 }
