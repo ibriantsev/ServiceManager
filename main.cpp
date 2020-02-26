@@ -9,12 +9,15 @@
 #include "ServiceManagement/ServiceManager.h"
 #include "ServiceManagement/Service.h"
 
+#include "com/ServiceManagerObj.h"
+#include "com/ServiceManagerObjFactory.h"
+
 using namespace ServiceManagement;
 
 void testServiceManager(void) {
 	ServiceManager mgr;
 	ServiceResult res;
-	std::vector<ServiceInfo> services;
+	std::vector<ServiceString> services;
 	
 	res = mgr.init();
 	assert(res);

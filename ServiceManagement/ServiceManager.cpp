@@ -1,8 +1,8 @@
 #include "ServiceManager.h"
 
 namespace ServiceManagement {
-	ServiceResult ServiceManager::enumerateServices(std::vector<ServiceInfo> &services) const {
-		std::vector<ServiceInfo> temp;
+	ServiceResult ServiceManager::enumerateServices(std::vector<ServiceString> &services) const {
+		std::vector<ServiceString> temp;
 		
 		LPENUM_SERVICE_STATUS_PROCESS lpServices;
 		DWORD cbBufSize, dwBytesNeeded = 0, dwServiceReturned = 0, dwResumeHandle = 0, dwError;
@@ -26,10 +26,7 @@ namespace ServiceManagement {
 			}
 			
 			for (auto i = 0; i < dwServiceReturned; ++i) {
-				temp.push_back(ServiceInfo(lpServices[i].lpServiceName, 
-																	 lpServices[i].lpDisplayName, 
-																	 lpServices[i].ServiceStatusProcess.dwProcessId,
-																	 lpServices[i].ServiceStatusProcess.dwCurrentState));
+				temp.push_back(lpServices[i].lpServiceName);
 			}
 			
 			LocalFree(lpServices);
