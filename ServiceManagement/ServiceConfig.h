@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <vector>
 #include <windows.h>
 #include <winsvc.h>
 
@@ -23,6 +24,7 @@ namespace ServiceManagement {
 		std::optional<ServiceString> m_BinaryPathName;
 		std::optional<ServiceString> m_LoadOrderGroup;
 		std::optional<DWORD>         m_TagId;
+		std::vector<ServiceString>   m_Dependencies;
 		std::optional<ServiceString> m_StartName;
 		std::optional<ServiceString> m_DisplayName;
 	};
@@ -46,6 +48,7 @@ namespace ServiceManagement {
 			ServiceResult getBinaryPathName(ServiceString &binaryPathName);
 			ServiceResult getLoadOrderGroup(ServiceString &loadOrderGroup);
 			ServiceResult getTagId(DWORD &tagId);
+			ServiceResult getDependencies(std::vector<ServiceString> &dependencies);
 			ServiceResult getStartName(ServiceString &startName);
 			ServiceResult getDisplayName(ServiceString &displayName);
 		private:

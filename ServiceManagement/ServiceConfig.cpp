@@ -3,6 +3,18 @@
 #include <iostream>
 
 namespace ServiceManagement {
+	std::vector<ServiceString> splitDependencies(LPCTSTR lpDependencies) {
+		std::vector<ServiceString> dependencies;
+		
+		LPCTSTR ptr = lpDependencies;
+		do {
+			dependencies.push_back(ptr);
+			ptr += dependencies.back().size() + 1;
+		} while (*ptr != TEXT('\0'));
+		
+		return dependencies;
+	}
+	
 	ServiceConfig::ServiceConfig(LPQUERY_SERVICE_CONFIG config) noexcept {
 		if (config) {
 			m_Type           = (ServiceType) config->dwServiceType;
@@ -11,6 +23,7 @@ namespace ServiceManagement {
 			m_BinaryPathName = config->lpBinaryPathName;
 			m_LoadOrderGroup = config->lpLoadOrderGroup;
 			m_TagId          = config->dwTagId;
+			m_Dependencies   = splitDependencies(config->lpDependencies);
 			m_StartName      = config->lpServiceStartName;
 			m_DisplayName    = config->lpDisplayName;
 		} else {
@@ -99,6 +112,14 @@ namespace ServiceManagement {
 			return sr;
 		
 		tagId = m_Config.value().m_TagId.value();
+		return ServiceResult();
+	}
+	ServiceResult ServiceConfigController::getDependencies(std::vector<ServiceString> &dependencies) {
+		ServiceResult sr = try_refresh();
+		if (!sr)
+			return sr;
+		
+		dependencies = m_Config.value().m_Dependencies;
 		return ServiceResult();
 	}
 	ServiceResult ServiceConfigController::getStartName(ServiceString &startName) {

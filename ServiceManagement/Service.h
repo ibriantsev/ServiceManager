@@ -37,6 +37,9 @@ namespace ServiceManagement {
 			ServiceResult getTagId(DWORD &tagId) {
 				return m_Config.getTagId(tagId);
 			}
+			ServiceResult getDependencies(std::vector<ServiceString> &dependencies) {
+				return m_Config.getDependencies(dependencies);
+			}
 			ServiceResult getStartName(ServiceString &startName) {
 				return m_Config.getStartName(startName);
 			}

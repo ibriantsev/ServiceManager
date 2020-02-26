@@ -23,6 +23,7 @@ void testExistingService(void) {
 	ServiceErrorControl errorControl;
 	ServiceString str;
 	DWORD tagId;
+	std::vector<ServiceString> dependencies;
 	ServiceResult res;
 	
 	res = testService.getType(type);
@@ -48,6 +49,12 @@ void testExistingService(void) {
 	res = testService.getTagId(tagId);
 	assert(res);
 	assert(tagId == 0);
+	
+	res = testService.getDependencies(dependencies);
+	assert(res);
+	assert(dependencies.size() == 2);
+	assert(dependencies[0] == L"NSI");
+	assert(dependencies[1] == L"Afd");
 	
 	res = testService.getStartName(str);
 	assert(res);
