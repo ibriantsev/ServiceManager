@@ -1,7 +1,5 @@
 #pragma once
 
-#include <sstream>
-
 #include "ServiceConstants.h"
 
 namespace ServiceManagement {
@@ -14,7 +12,7 @@ namespace ServiceManagement {
 			ServiceResult(void): m_Success(true) {
 			}
 			ServiceResult(const ServiceString &message, DWORD errorCode)
-			: m_Success(false), m_Message(message + std::to_string(errorCode)), m_ErrorCode(errorCode) {
+			: m_Success(false), m_Message(message + TEXT(" (") + to_tstring(errorCode) + TEXT(")")) {
 			}
 			
 			operator bool() const {
@@ -26,6 +24,5 @@ namespace ServiceManagement {
 		private:
 			bool m_Success;
 			ServiceString m_Message;
-			DWORD m_ErrorCode;
 	};
 } // namespace ServiceManagement

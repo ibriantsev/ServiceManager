@@ -43,13 +43,13 @@ namespace ServiceManagement {
 				cbBufSize = dwBytesNeeded;
 				lpCurrentConfig = (LPQUERY_SERVICE_CONFIG) LocalAlloc(LMEM_FIXED, cbBufSize);
 			} else {
-				return ServiceResult(L"Error: reading service configuration failed: ", dwError);
+				return ServiceResult(TEXT("Error: reading service configuration failed: "), dwError);
 			}
 		}
 		
 		if(!QueryServiceConfig(m_Handle, lpCurrentConfig, cbBufSize, &dwBytesNeeded)) {
 				LocalFree(lpCurrentConfig);
-				return ServiceResult(L"Error: reading service configuration failed: ", GetLastError());
+				return ServiceResult(TEXT("Error: reading service configuration failed: "), GetLastError());
 		}
 		
 		m_Config = ServiceConfig(lpCurrentConfig);

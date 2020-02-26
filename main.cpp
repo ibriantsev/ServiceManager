@@ -14,7 +14,7 @@ void testExistingService(void) {
 	SC_HANDLE mgrHandle = ::OpenSCManager(nullptr, nullptr, GENERIC_READ);
 	assert(mgrHandle != nullptr);
 	
-	SC_HANDLE srvHandle = ::OpenService(mgrHandle, L"Dhcp", GENERIC_READ);
+	SC_HANDLE srvHandle = ::OpenService(mgrHandle, TEXT("Dhcp"), GENERIC_READ);
 	assert(srvHandle != nullptr);
 	
 	Service testService(srvHandle);
@@ -40,11 +40,11 @@ void testExistingService(void) {
 	
 	res = testService.getBinaryPathName(str);
 	assert(res);
-	assert(str == L"C:\\Windows\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p");
+	assert(str == TEXT("C:\\Windows\\system32\\svchost.exe -k LocalServiceNetworkRestricted -p"));
 	
 	res = testService.getLoadOrderGroup(str);
 	assert(res);
-	assert(str == L"TDI");
+	assert(str == TEXT("TDI"));
 	
 	res = testService.getTagId(tagId);
 	assert(res);
@@ -53,16 +53,16 @@ void testExistingService(void) {
 	res = testService.getDependencies(dependencies);
 	assert(res);
 	assert(dependencies.size() == 2);
-	assert(dependencies[0] == L"NSI");
-	assert(dependencies[1] == L"Afd");
+	assert(dependencies[0] == TEXT("NSI"));
+	assert(dependencies[1] == TEXT("Afd"));
 	
 	res = testService.getStartName(str);
 	assert(res);
-	assert(str == L"NT Authority\\LocalService");
+	assert(str == TEXT("NT Authority\\LocalService"));
 	
 	res = testService.getDisplayName(str);
 	assert(res);
-	assert(str == L"DHCP Client");
+	assert(str == TEXT("DHCP Client"));
 	
 	::CloseServiceHandle(mgrHandle);
 }

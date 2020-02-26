@@ -8,9 +8,10 @@
 
 #ifdef UNICODE
 	#define _ServiceString std::wstring
-	#define to_string to_wstring
+	#define to_tstring std::to_wstring
 #else
 	#define _ServiceString std::string
+	#define to_tstring std::to_string
 #endif
 
 namespace ServiceManagement {
