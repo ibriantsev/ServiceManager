@@ -32,8 +32,8 @@ namespace ServiceManagement {
 	}
 	
 	ServiceResult ServiceConfigController::refresh(void) {
-		LPQUERY_SERVICE_CONFIG lpCurrentConfig;
-		DWORD dwBytesNeeded, cbBufSize, dwError;
+		LPQUERY_SERVICE_CONFIG lpCurrentConfig{0};
+		DWORD dwBytesNeeded, cbBufSize = 0, dwError;
 		
 		if(!QueryServiceConfig(m_Handle, nullptr, 0, &dwBytesNeeded)) {
 			dwError = GetLastError();

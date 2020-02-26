@@ -1,0 +1,1 @@
+add_library(ServiceManagement STATIC ServiceConfig.cpp Service.cpp ServiceManager.cpp)

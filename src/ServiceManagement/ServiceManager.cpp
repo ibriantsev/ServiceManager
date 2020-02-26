@@ -4,8 +4,8 @@ namespace ServiceManagement {
 	ServiceResult ServiceManager::enumerateServices(std::vector<ServiceString> &services) const {
 		std::vector<ServiceString> temp;
 		
-		LPENUM_SERVICE_STATUS_PROCESS lpServices;
-		DWORD cbBufSize, dwBytesNeeded = 0, dwServiceReturned = 0, dwResumeHandle = 0, dwError;
+		LPENUM_SERVICE_STATUS_PROCESS lpServices = nullptr;
+		DWORD cbBufSize = 0, dwBytesNeeded = 0, dwServiceReturned = 0, dwResumeHandle = 0, dwError;
 		
 		do {
 			if(!EnumServicesStatusEx(m_MgrHandle, SC_ENUM_PROCESS_INFO, SERVICE_TYPE_ALL, SERVICE_STATE_ALL, 
@@ -25,7 +25,7 @@ namespace ServiceManagement {
 				return ServiceResult(TEXT("Error: enumerating services failed: "), GetLastError());
 			}
 			
-			for (auto i = 0; i < dwServiceReturned; ++i) {
+			for (DWORD i = 0; i < dwServiceReturned; ++i) {
 				temp.push_back(lpServices[i].lpServiceName);
 			}
 			

@@ -6,11 +6,11 @@
 
 #include <cassert>
 
-#include "ServiceManagement/ServiceManager.h"
-#include "ServiceManagement/Service.h"
+#include "ServiceManager.h"
+#include "Service.h"
 
-#include "com/ServiceManagerObj.h"
-#include "com/ServiceManagerObjFactory.h"
+//#include "src/com/ServiceManagerObj.h"
+//#include "src/com/ServiceManagerObjFactory.h"
 
 using namespace ServiceManagement;
 

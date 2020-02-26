@@ -1,4 +1,7 @@
 *.obj
 *.exe
 
-com/generated/*
+src/com/generated
+
+.vs/
+out/

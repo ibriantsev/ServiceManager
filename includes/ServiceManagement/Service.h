@@ -55,7 +55,7 @@ namespace ServiceManagement {
 	 * Stores basic service information
 	 * 
 	 * Used for enumarating services.
-	 */
+	 *//*
 	struct ServiceInfo {
 		ServiceInfo(const ServiceString &serviceName, 
 								const ServiceString &displayName, 
@@ -72,5 +72,5 @@ namespace ServiceManagement {
 		DWORD m_ProcessId;
 		DWORD m_CurrentState;
 		DWORD m_Type;
-	};
+	};*/
 } // ServiceManagements
