@@ -4,7 +4,8 @@
 #include <atlsafe.h>
 
 #include "ServiceManagerObj.h"
-#include "generated/IServiceManager_i.c"
+
+long g_ObjCnt = 0;
 
 HRESULT __stdcall ServiceManagerObj::QueryInterface(REFIID riid, void **ppObj) {
 	if (riid == IID_IUnknown) {

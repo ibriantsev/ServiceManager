@@ -9,6 +9,6 @@ interface IServiceManager : IUnknown {
 };
 
 [uuid(46f74dd1-3eb8-4cf9-91c7-2ffdd73e98c7)]
-library CodeGuruMathLib {
+library ServiceManagement {
 	interface IServiceManager;
 }

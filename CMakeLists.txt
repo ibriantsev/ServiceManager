@@ -5,10 +5,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHc /std:c++17")
 
 add_definitions(-DUNICODE)
 
+include_directories(includes/com)
 include_directories(includes/ServiceManagement)
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/generated")
 
 add_subdirectory(src/ServiceManagement)
+add_subdirectory(src/com)
 
-add_executable (ServiceManager "main.cpp")
+add_dependencies(COMObjects ServiceManagement)
+add_library(${PROJECT_NAME} SHARED ServiceManagementDll.cpp)
 
-target_link_libraries(ServiceManager PUBLIC ServiceManagement)
+target_link_libraries(${PROJECT_NAME} PUBLIC COMObjects)

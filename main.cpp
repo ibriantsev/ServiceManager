@@ -1,4 +1,4 @@
-#pragma comment(lib,"advapi32.lib") 
+//#pragma comment(lib,"advapi32.lib") 
 
 #include <iostream>
 #include <windows.h>
@@ -8,9 +8,6 @@
 
 #include "ServiceManager.h"
 #include "Service.h"
-
-//#include "src/com/ServiceManagerObj.h"
-//#include "src/com/ServiceManagerObjFactory.h"
 
 using namespace ServiceManagement;
 

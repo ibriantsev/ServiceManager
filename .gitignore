@@ -1,7 +1,2 @@
-*.obj
-*.exe
-
-src/com/generated
-
 .vs/
 out/
