@@ -13,6 +13,7 @@ add_subdirectory(src/ServiceManagement)
 add_subdirectory(src/com)
 
 add_dependencies(COMObjects ServiceManagement)
-add_library(${PROJECT_NAME} SHARED ServiceManagementDll.cpp)
+add_library(${PROJECT_NAME} SHARED ServiceManagementDll.cpp ServiceManagementDll.def)
 
+target_link_libraries(${PROJECT_NAME} PRIVATE comsuppw.lib)
 target_link_libraries(${PROJECT_NAME} PUBLIC COMObjects)

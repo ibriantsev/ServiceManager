@@ -13,17 +13,17 @@ namespace ServiceManagement {
 		return dependencies;
 	}
 	
-	ServiceConfig::ServiceConfig(LPQUERY_SERVICE_CONFIG config) noexcept {
-		if (config) {
-			m_Type           = (ServiceType) config->dwServiceType;
-			m_StartType      = (ServiceStartType) config->dwStartType;
-			m_ErrorControl   = (ServiceErrorControl) config->dwErrorControl;
-			m_BinaryPathName = config->lpBinaryPathName;
-			m_LoadOrderGroup = config->lpLoadOrderGroup;
-			m_TagId          = config->dwTagId;
-			m_Dependencies   = splitDependencies(config->lpDependencies);
-			m_StartName      = config->lpServiceStartName;
-			m_DisplayName    = config->lpDisplayName;
+	ServiceConfig::ServiceConfig(LPQUERY_SERVICE_CONFIG lpConfig) noexcept {
+		if (lpConfig) {
+			m_Type           = (ServiceType) lpConfig->dwServiceType;
+			m_StartType      = (ServiceStartType) lpConfig->dwStartType;
+			m_ErrorControl   = (ServiceErrorControl) lpConfig->dwErrorControl;
+			m_BinaryPathName = lpConfig->lpBinaryPathName;
+			m_LoadOrderGroup = lpConfig->lpLoadOrderGroup;
+			m_TagId          = lpConfig->dwTagId;
+			m_Dependencies   = splitDependencies(lpConfig->lpDependencies);
+			m_StartName      = lpConfig->lpServiceStartName;
+			m_DisplayName    = lpConfig->lpDisplayName;
 		} else {
 			m_Type           = ServiceType::NoChange;
 			m_StartType      = ServiceStartType::NoChange;

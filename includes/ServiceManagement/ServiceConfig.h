@@ -16,7 +16,7 @@ namespace ServiceManagement {
 	 * which does not change existing service configuration.
 	 */
 	struct ServiceConfig {
-		ServiceConfig(LPQUERY_SERVICE_CONFIG config = nullptr) noexcept;
+		ServiceConfig(LPQUERY_SERVICE_CONFIG lpConfig = nullptr) noexcept;
 		
 		ServiceType                  m_Type;
 		ServiceStartType             m_StartType;

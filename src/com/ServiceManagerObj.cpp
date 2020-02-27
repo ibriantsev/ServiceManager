@@ -45,7 +45,7 @@ HRESULT __stdcall ServiceManagerObj::init(void) {
 	return S_OK;
 }
 
-HRESULT __stdcall ServiceManagerObj::enumetateServiceNames(SAFEARRAY **pServices) {
+HRESULT __stdcall ServiceManagerObj::enumetateServiceNames(SAFEARRAY **ppServices) {
 	ServiceManagement::ServiceResult res;
 	std::vector<ServiceManagement::ServiceString> serviceNames;
 	
@@ -62,6 +62,6 @@ HRESULT __stdcall ServiceManagerObj::enumetateServiceNames(SAFEARRAY **pServices
 			AtlThrow(hr);
 	}
 	
-	*pServices = result.Detach();
+	*ppServices = result.Detach();
 	return S_OK;
 }
