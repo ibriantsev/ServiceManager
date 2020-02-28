@@ -7,8 +7,3 @@ interface IServiceManager : IUnknown {
 	HRESULT init();	
 	HRESULT enumetateServiceNames([out,retval] SAFEARRAY(BSTR) *ppServices);
 };
-
-[uuid(46f74dd1-3eb8-4cf9-91c7-2ffdd73e98c7)]
-library ServiceManagement {
-	interface IServiceManager;
-}
