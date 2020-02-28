@@ -4,8 +4,10 @@
 
 #include "ServiceManagerObjFactory.h"
 
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+
 STDAPI __stdcall DllGetClassObject(const CLSID& clsid, const IID& iid, void** ppv) {
-	if (clsid == CLSID_ServiceManagerObj) {
+	if (clsid == ServiceManagerObj::CLSID) {
 		ServiceManagerObjFactory* pObjFact = new ServiceManagerObjFactory();
 
 		if (pObjFact == nullptr)
@@ -23,7 +25,7 @@ STDAPI __stdcall DllCanUnloadNow(void) {
 HRESULT convertCLSID(CLSID clsid, std::wstring &result) {
 	LPOLESTR lpCLSID;
 
-	HRESULT rs = StringFromCLSID(CLSID_ServiceManagerObj, &lpCLSID);
+	HRESULT rs = StringFromCLSID(ServiceManagerObj::CLSID, &lpCLSID);
 	result = (_bstr_t) lpCLSID;
 
 	return rs;
@@ -50,14 +52,14 @@ LONG writeRegKey(const std::wstring& key, const std::wstring &value) {
 
 STDAPI __stdcall DllRegisterServer(void) {
 	std::wstring CLSID;
-	HRESULT rs = convertCLSID(CLSID_ServiceManagerObj, CLSID);
+	HRESULT rs = convertCLSID(ServiceManagerObj::CLSID, CLSID);
 	if (FAILED(rs)) return STG_E_INSUFFICIENTMEMORY;
 	
 	wchar_t temp[MAX_PATH];
-	GetModuleFileName(nullptr, temp, MAX_PATH);
+	GetModuleFileName((HINSTANCE)&__ImageBase, temp, MAX_PATH);
 	std::wstring moduleName(temp);
 
-	std::wstring progId = ProgID_ServiceManagerObj;
+	std::wstring progId = ServiceManagerObj::ProgID;
 	std::wstring descrition = L"COM Object implementing Windows Service Management";
 
 	std::wstring key = L"CLSID\\" + CLSID;
@@ -78,10 +80,10 @@ STDAPI __stdcall DllRegisterServer(void) {
 
 STDAPI __stdcall DllUnregisterServer(void) {
 	std::wstring CLSID;
-	HRESULT rs = convertCLSID(CLSID_ServiceManagerObj, CLSID);
+	HRESULT rs = convertCLSID(ServiceManagerObj::CLSID, CLSID);
 	if (FAILED(rs)) return STG_E_INSUFFICIENTMEMORY;
 
-	std::wstring progId = ProgID_ServiceManagerObj;
+	std::wstring progId = ServiceManagerObj::ProgID;
 
 	std::wstring key = L"CLSID\\" + CLSID;
 	LONG error;

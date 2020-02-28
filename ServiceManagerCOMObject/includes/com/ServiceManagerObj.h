@@ -5,14 +5,9 @@
 
 #include "ServiceManager.h"
 
-constexpr auto ProgID_ServiceManagerObj = L"COMServiceManagement.ServiceManagerObj";
-
-// {4fa8f5b0-f690-4152-90c4-32d67c26e4a8}
-const CLSID CLSID_ServiceManagerObj = { 0x4fa8f5b0, 0xf690, 0x4152, { 0x90, 0xc4, 0x32, 0xd6, 0x7c, 0x26, 0xe4, 0xa8 } };
-
 extern long g_ObjCnt;
 
-class ServiceManagerObj : public IServiceManager {
+class __declspec(uuid("{4fa8f5b0-f690-4152-90c4-32d67c26e4a8}")) ServiceManagerObj : public IServiceManager {
 	public:
 		ServiceManagerObj(void) : m_RefCnt(0), m_ServiceManager() {
 			++g_ObjCnt;
@@ -28,6 +23,9 @@ class ServiceManagerObj : public IServiceManager {
 		//IServiceManager interface
 		HRESULT __stdcall init(void);
 		HRESULT __stdcall enumetateServiceNames(SAFEARRAY **ppServices);
+
+		static constexpr CLSID CLSID = __uuidof(ServiceManagerObj);
+		static constexpr auto ProgID = TEXT("COMServiceManagement.ServiceManagerObj");
 	private:
 		long m_RefCnt;
 		ServiceManagement::ServiceManager m_ServiceManager;
