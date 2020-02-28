@@ -18,7 +18,7 @@ set(HEADERS
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceManagerObj.h 
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceManagerObjFactory.h
 )
-link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/src)
+link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 add_library(COMObjects STATIC ServiceManagerObj.cpp ServiceManagerObjFactory.cpp ${HEADERS})
 

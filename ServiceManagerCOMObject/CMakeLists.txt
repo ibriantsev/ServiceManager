@@ -16,4 +16,7 @@ add_dependencies(COMObjects ServiceManagement)
 add_library(${PROJECT_NAME} SHARED ServiceManagementDll.cpp ServiceManagementDll.def)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE comsuppw.lib)
-target_link_libraries(${PROJECT_NAME} PUBLIC COMObjects)
+target_link_libraries(${PROJECT_NAME} PRIVATE COMObjects)
+
+add_executable(tests main.cpp)
+target_link_libraries(tests ServiceManagement)

@@ -47,15 +47,15 @@ HRESULT __stdcall ServiceManagerObj::init(void) {
 
 HRESULT __stdcall ServiceManagerObj::enumetateServiceNames(SAFEARRAY **ppServices) {
 	ServiceManagement::ServiceResult res;
-	std::vector<ServiceManagement::ServiceString> serviceNames;
+	std::vector<ServiceManagement::ServiceInfo> servicesInfo;
 	
-	res = m_ServiceManager.enumerateServices(serviceNames);
+	res = m_ServiceManager.enumerateServicesInfo(servicesInfo);
 	if (!res)
 		return RPC_E_ACCESS_DENIED;
 	
 	CComSafeArray<BSTR> result;
-	for (auto &x : serviceNames) {
-		CComBSTR bs(x.data());
+	for (auto &x : servicesInfo) {
+		CComBSTR bs(x.m_ServiceName.data());
 		HRESULT hr = result.Add(bs, FALSE);
 		
 		if (FAILED(hr))

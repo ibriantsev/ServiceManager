@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <winsvc.h>
 
+#include "Service.h"
 #include "ServiceResult.h"
 
 namespace ServiceManagement {
@@ -19,7 +20,7 @@ namespace ServiceManagement {
 				return m_MgrHandle ? ServiceResult() : ServiceResult(TEXT("Error: opening service manager failed: "), GetLastError());
 			}
 			
-			ServiceResult enumerateServices(std::vector<ServiceString> &services) const;
+			ServiceResult enumerateServicesInfo(std::vector<ServiceInfo> &services) const;
 		private:
 			SC_HANDLE m_MgrHandle;
 	};

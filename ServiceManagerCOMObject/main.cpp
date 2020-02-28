@@ -14,14 +14,15 @@ using namespace ServiceManagement;
 void testServiceManager(void) {
 	ServiceManager mgr;
 	ServiceResult res;
-	std::vector<ServiceString> services;
+	std::vector<ServiceInfo> servicesInfo;
 	
 	res = mgr.init();
 	assert(res);
 	
-	res = mgr.enumerateServices(services);
+	res = mgr.enumerateServicesInfo(servicesInfo);
 	assert(res);
-	assert(services.size() > 0);
+	assert(servicesInfo.size() > 0);
+	std::cout << servicesInfo.size() << std::endl;
 }
 
 void testService(void) {
