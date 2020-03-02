@@ -7,7 +7,7 @@
 
 extern long g_ObjCnt;
 
-class __declspec(uuid("{4fa8f5b0-f690-4152-90c4-32d67c26e4a8}")) ServiceManagerObj : public IServiceManager {
+class ServiceManagerObj : public IServiceManager {
 	public:
 		ServiceManagerObj(void) : m_RefCnt(0), m_ServiceManager() {
 			++g_ObjCnt;
@@ -22,9 +22,8 @@ class __declspec(uuid("{4fa8f5b0-f690-4152-90c4-32d67c26e4a8}")) ServiceManagerO
 		
 		//IServiceManager interface
 		HRESULT __stdcall init(void);
-		HRESULT __stdcall enumetateServiceNames(SAFEARRAY **ppServices);
+		HRESULT __stdcall enumetateServicesInfo(SAFEARRAY **ppServices);
 
-		static constexpr CLSID CLSID = __uuidof(ServiceManagerObj);
 		static constexpr auto ProgID = TEXT("COMServiceManagement.ServiceManagerObj");
 	private:
 		long m_RefCnt;

@@ -15,7 +15,7 @@ namespace com {
     hr = CoInitialize(nullptr);
     if (FAILED(hr)) return hr;
 
-    hr = CoCreateInstance(__uuidof(ServiceManagerObj), nullptr, CLSCTX_INPROC_SERVER, IID_IUnknown, (void**) &unknown);
+    hr = CoCreateInstance(CLSID_ServiceManagerObj, nullptr, CLSCTX_INPROC_SERVER, IID_IUnknown, (void**) &unknown);
     if (FAILED(hr)) return hr;
     
     hr = unknown->QueryInterface(IID_IServiceManager, (void**) &m_Manager);
@@ -28,16 +28,22 @@ namespace com {
     HRESULT hr;
 
     SAFEARRAY* buffer;
-    hr = m_Manager->enumetateServiceNames(&buffer);
+    hr = m_Manager->enumetateServicesInfo(&buffer);
     if (FAILED(hr)) return hr;
 
-    CComSafeArray<BSTR> serviceNames;
+    CComSafeArray<VARIANT> serviceNames;
     serviceNames.Attach(buffer);
     
     std::cout << serviceNames.GetCount() << std::endl;
     
-    for (LONG i = 0; i < serviceNames.GetCount(); ++i)
-      result.push_back(std::wstring(serviceNames[i]));
+    for (LONG i = 0; i < serviceNames.GetCount(); ++i) {
+      CComVariant variant(serviceNames[i]);
+      
+      TServiceInfo* pInfo = static_cast<TServiceInfo*>(variant.pvRecord);
+      std::wcout << (variant.vt == VT_RECORD) << std::endl;
+      //result.push_back(pInfo->m_DisplayName);
+    }
+      
     
     return S_OK;
   }

@@ -7,7 +7,7 @@
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
 STDAPI __stdcall DllGetClassObject(const CLSID& clsid, const IID& iid, void** ppv) {
-	if (clsid == ServiceManagerObj::CLSID) {
+	if (clsid == CLSID_ServiceManagerObj) {
 		ServiceManagerObjFactory* pObjFact = new ServiceManagerObjFactory();
 
 		if (pObjFact == nullptr)
@@ -25,7 +25,7 @@ STDAPI __stdcall DllCanUnloadNow(void) {
 HRESULT convertCLSID(CLSID clsid, std::wstring &result) {
 	LPOLESTR lpCLSID;
 
-	HRESULT rs = StringFromCLSID(ServiceManagerObj::CLSID, &lpCLSID);
+	HRESULT rs = StringFromCLSID(CLSID_ServiceManagerObj, &lpCLSID);
 	result = (_bstr_t) lpCLSID;
 
 	return rs;
@@ -52,7 +52,7 @@ LONG writeRegKey(const std::wstring& key, const std::wstring &value) {
 
 STDAPI __stdcall DllRegisterServer(void) {
 	std::wstring CLSID;
-	HRESULT rs = convertCLSID(ServiceManagerObj::CLSID, CLSID);
+	HRESULT rs = convertCLSID(CLSID_ServiceManagerObj, CLSID);
 	if (FAILED(rs)) return STG_E_INSUFFICIENTMEMORY;
 	
 	wchar_t temp[MAX_PATH];
@@ -80,7 +80,7 @@ STDAPI __stdcall DllRegisterServer(void) {
 
 STDAPI __stdcall DllUnregisterServer(void) {
 	std::wstring CLSID;
-	HRESULT rs = convertCLSID(ServiceManagerObj::CLSID, CLSID);
+	HRESULT rs = convertCLSID(CLSID_ServiceManagerObj, CLSID);
 	if (FAILED(rs)) return STG_E_INSUFFICIENTMEMORY;
 
 	std::wstring progId = ServiceManagerObj::ProgID;

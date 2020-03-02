@@ -4,6 +4,7 @@
 #include <atlsafe.h>
 
 #include "ServiceManagerObj.h"
+#include "ServiceInfoConverter.h"
 
 long g_ObjCnt = 0;
 
@@ -45,21 +46,23 @@ HRESULT __stdcall ServiceManagerObj::init(void) {
 	return S_OK;
 }
 
-HRESULT __stdcall ServiceManagerObj::enumetateServiceNames(SAFEARRAY **ppServices) {
+HRESULT __stdcall ServiceManagerObj::enumetateServicesInfo(SAFEARRAY **ppServices) {
 	ServiceManagement::ServiceResult res;
 	std::vector<ServiceManagement::ServiceInfo> servicesInfo;
 	
 	res = m_ServiceManager.enumerateServicesInfo(servicesInfo);
-	if (!res)
-		return RPC_E_ACCESS_DENIED;
+	if (!res) return RPC_E_ACCESS_DENIED;
 	
-	CComSafeArray<BSTR> result;
-	for (auto &x : servicesInfo) {
-		CComBSTR bs(x.m_ServiceName.data());
-		HRESULT hr = result.Add(bs, FALSE);
+	CComSafeArray<VARIANT> result;
+	for (auto& x : servicesInfo) {
+		HRESULT hr;
+		VARIANT variant;
 		
-		if (FAILED(hr))
-			AtlThrow(hr);
+		hr = com::ServiceInfoConverter::convertToVariant(x, variant);
+		if (FAILED(hr)) AtlThrow(hr);
+
+		hr = result.Add(variant, FALSE);
+		if (FAILED(hr)) AtlThrow(hr);
 	}
 	
 	*ppServices = result.Detach();

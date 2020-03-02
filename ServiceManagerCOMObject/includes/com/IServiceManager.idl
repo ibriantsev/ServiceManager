@@ -2,8 +2,28 @@ import "unknwn.idl";
 import "oaidl.idl";
 import "ocidl.idl";
 
-[object, uuid(9490e8d9-ca97-4ffe-81f1-c6d125479c1f)]
-interface IServiceManager : IUnknown {
-	HRESULT init();	
-	HRESULT enumetateServiceNames([out,retval] SAFEARRAY(BSTR) *ppServices);
-};
+[uuid(9a557c4c-832a-4dad-84de-5fda786e766b), version(1.0)]
+library ServiceManagement {
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[uuid(57973979-ae63-48df-a553-89d61ed1f099)]
+	struct TServiceInfo {
+		BSTR m_ServiceName;
+		BSTR m_DisplayName;
+		ULONG m_Type;
+		ULONG m_CurrentState;
+		ULONG m_ProcessId;
+	};
+
+	[object, uuid(9490e8d9-ca97-4ffe-81f1-c6d125479c1f)]
+	interface IServiceManager : IUnknown {
+		HRESULT init();
+		HRESULT enumetateServicesInfo([out, retval] SAFEARRAY(VARIANT)* ppServices);
+	};
+
+	[uuid(4fa8f5b0-f690-4152-90c4-32d67c26e4a8)]
+	coclass ServiceManagerObj {
+		[default] interface IServiceManager;
+	};
+}
