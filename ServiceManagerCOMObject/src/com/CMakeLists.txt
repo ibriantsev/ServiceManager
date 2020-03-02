@@ -1,12 +1,13 @@
 set(MIDL_OUTPUT 
-    "${CMAKE_BINARY_DIR}/generated/IServiceManager.h"
-    "${CMAKE_BINARY_DIR}/generated/GUIDS.c"
+    "${PROJECT_SOURCE_DIR}/generated/IServiceManager.h"
+    "${PROJECT_SOURCE_DIR}/generated/GUIDS.c"
+    "${PROJECT_SOURCE_DIR}/generated/ServiceManagement.tlb"
 )
 set(MIDL_FILE ${CMAKE_SOURCE_DIR}/includes/com/IServiceManager.idl)
 add_custom_command(
     OUTPUT ${MIDL_OUTPUT}
-    COMMAND midl /h IServiceManager.h /iid GUIDS.c /out generated ${MIDL_FILE}
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMAND midl /h IServiceManager.h /iid GUIDS.c /tlb ServiceManagement.tlb /out generated ${MIDL_FILE}
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     DEPENDS ${MIDL_FILE}
     MAIN_DEPENDENCY ${MIDL_FILE}
     VERBATIM

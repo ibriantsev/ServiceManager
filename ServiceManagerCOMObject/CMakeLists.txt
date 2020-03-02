@@ -7,13 +7,13 @@ add_definitions(-DUNICODE)
 
 include_directories(includes/com)
 include_directories(includes/ServiceManagement)
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/generated")
+include_directories("${PROJECT_SOURCE_DIR}/generated")
 
 add_subdirectory(src/ServiceManagement)
 add_subdirectory(src/com)
 
 add_dependencies(COMObjects ServiceManagement)
-add_library(${PROJECT_NAME} SHARED ServiceManagementDll.cpp ServiceManagementDll.def)
+add_library(${PROJECT_NAME} SHARED ServiceManagementDll.cpp ServiceManagementDll.def ServiceManagement.rc)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE comsuppw.lib)
 target_link_libraries(${PROJECT_NAME} PRIVATE COMObjects)
