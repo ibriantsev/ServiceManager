@@ -23,6 +23,10 @@ void testServiceManager(void) {
 	assert(res);
 	assert(servicesInfo.size() > 0);
 	std::cout << servicesInfo.size() << std::endl;
+
+	for (auto& x : servicesInfo) {
+		std::wcout << x.m_ServiceName << '\t' << x.m_DisplayName << '\t' << x.m_ProcessId << std::endl;
+	}
 }
 
 void testService(void) {

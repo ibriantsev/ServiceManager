@@ -37,13 +37,12 @@ namespace com {
     std::cout << serviceNames.GetCount() << std::endl;
     
     for (LONG i = 0; i < serviceNames.GetCount(); ++i) {
-      //CComVariant variant(serviceNames[i]);
+      CComVariant variant(serviceNames[i]);
       
-      //TServiceInfo* pInfo = static_cast<TServiceInfo*>(variant.pvRecord);
-      //std::wcout << (variant.vt == VT_RECORD) << std::endl;
-      //result.push_back(pInfo->m_DisplayName);
+      TServiceInfo* pInfo = static_cast<TServiceInfo*>(variant.pvRecord);
+      std::wcout << (variant.vt == VT_RECORD) << std::endl;
+      result.push_back(pInfo->m_DisplayName);
     }
-      
     
     return S_OK;
   }

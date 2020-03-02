@@ -61,6 +61,8 @@ HRESULT __stdcall ServiceManagerObj::enumetateServicesInfo(SAFEARRAY **ppService
 		hr = com::ServiceInfoConverter::convertToVariant(x, variant);
 		if (FAILED(hr)) AtlThrow(hr);
 
+		TServiceInfo* info = static_cast<TServiceInfo*> (variant.pvRecord);
+
 		hr = result.Add(variant, FALSE);
 		if (FAILED(hr)) AtlThrow(hr);
 	}

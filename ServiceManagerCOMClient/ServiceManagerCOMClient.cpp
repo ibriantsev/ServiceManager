@@ -4,6 +4,12 @@
 #include <cassert>
 
 #include "ServiceManager.h"
+/*
+#define _CRTDBG_MAP_ALLOC
+#define _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#include <stdlib.h>
+#include <crtdbg.h>
+*/
 
 int main(void) {
 	com::ServiceManager m;
@@ -18,5 +24,6 @@ int main(void) {
 	for (auto s : result)
 		std::wcout << s << std::endl;
 
+	//_CrtDumpMemoryLeaks();
 	return hr;
 }
