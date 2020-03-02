@@ -5,6 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHc /std:c++17")
 
 add_definitions(-DUNICODE)
 
+include_directories(includes/util)
 include_directories(includes/com)
 include_directories(includes/ServiceManagement)
 include_directories("${PROJECT_SOURCE_DIR}/generated")

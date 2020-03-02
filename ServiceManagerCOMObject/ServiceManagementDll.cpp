@@ -2,9 +2,8 @@
 #include <sstream>
 #include <comutil.h>
 
+#include "Util.h"
 #include "ServiceManagerObjFactory.h"
-
-EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
 STDAPI __stdcall DllGetClassObject(const CLSID& clsid, const IID& iid, void** ppv) {
 	if (clsid == CLSID_ServiceManagerObj) {
@@ -31,49 +30,29 @@ HRESULT convertCLSID(CLSID clsid, std::wstring &result) {
 	return rs;
 }
 
-LONG writeRegKey(const std::wstring& key, const std::wstring &value) {
-	LONG error;
-	HKEY hkResult;
-	
-	error = RegCreateKey(HKEY_CLASSES_ROOT, key.c_str(), &hkResult);
-	if (error != ERROR_SUCCESS)
-		return error;
-	
-	CONST BYTE* data = reinterpret_cast<const BYTE*>(value.c_str());
-	DWORD dataSize = value.size() * sizeof(std::wstring::traits_type::char_type);
-
-	error = RegSetValueEx(hkResult, nullptr, 0, REG_SZ, data, dataSize);
-	if (error != ERROR_SUCCESS) {
-		RegCloseKey(hkResult);
-		return error;
-	}
-	return RegCloseKey(hkResult);
-}
-
 STDAPI __stdcall DllRegisterServer(void) {
 	std::wstring CLSID;
 	HRESULT rs = convertCLSID(CLSID_ServiceManagerObj, CLSID);
 	if (FAILED(rs)) return STG_E_INSUFFICIENTMEMORY;
 	
-	wchar_t temp[MAX_PATH];
-	GetModuleFileName((HINSTANCE)&__ImageBase, temp, MAX_PATH);
-	std::wstring moduleName(temp);
+	std::wstring moduleName;
+	rs = util::getCurrentModuleName(moduleName);
+	if (FAILED(rs)) return rs;
 
 	std::wstring progId = ServiceManagerObj::ProgID;
 	std::wstring descrition = L"COM Object implementing Windows Service Management";
 
 	std::wstring key = L"CLSID\\" + CLSID;
-	LONG error;
-	error = writeRegKey(key, descrition);
-	if (error != ERROR_SUCCESS) return TYPE_E_REGISTRYACCESS;
-	error = writeRegKey(key + L"\\InprocServer32", moduleName);
-	if (error != ERROR_SUCCESS) return TYPE_E_REGISTRYACCESS;
-	error = writeRegKey(key + L"\\ProgId", progId);
-	if (error != ERROR_SUCCESS) return TYPE_E_REGISTRYACCESS;
-	error = writeRegKey(progId, descrition);
-	if (error != ERROR_SUCCESS) return TYPE_E_REGISTRYACCESS;
-	error = writeRegKey(progId + L"\\CLSID", CLSID);
-	if (error != ERROR_SUCCESS) return TYPE_E_REGISTRYACCESS;
+	rs = util::writeRegKey(key, descrition);
+	if (FAILED(rs)) return rs;
+	rs = util::writeRegKey(key + L"\\InprocServer32", moduleName);
+	if (FAILED(rs)) return rs;
+	rs = util::writeRegKey(key + L"\\ProgId", progId);
+	if (FAILED(rs)) return rs;
+	rs = util::writeRegKey(progId, descrition);
+	if (FAILED(rs)) return rs;
+	rs = util::writeRegKey(progId + L"\\CLSID", CLSID);
+	if (FAILED(rs)) return rs;
 	
 	return S_OK;
 }

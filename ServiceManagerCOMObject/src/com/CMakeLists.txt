@@ -13,14 +13,15 @@ add_custom_command(
     VERBATIM
 )
 
-set(HEADERS 
+set(HEADERS
+    ${CMAKE_SOURCE_DIR}/includes/util/Util.h
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceManagerObj.h 
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceManagerObjFactory.h
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceInfoConverter.h
 )
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
-add_library(COMObjects STATIC ServiceInfoConverter.cpp ServiceManagerObj.cpp ServiceManagerObjFactory.cpp ${HEADERS})
+add_library(COMObjects STATIC ../util/Util.cpp ServiceInfoConverter.cpp ServiceManagerObj.cpp ServiceManagerObjFactory.cpp ${HEADERS})
 
 target_sources(COMObjects PRIVATE ${MIDL_FILE} ${MIDL_OUTPUT})
 target_link_libraries(COMObjects debug ServiceManagement)

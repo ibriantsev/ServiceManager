@@ -24,7 +24,7 @@ class ServiceManagerObj : public IServiceManager {
 		HRESULT __stdcall init(void);
 		HRESULT __stdcall enumetateServicesInfo(SAFEARRAY **ppServices);
 
-		static constexpr auto ProgID = TEXT("COMServiceManagement.ServiceManagerObj");
+		static constexpr auto ProgID = TEXT("ComServiceManagement.ServiceManagerObj");
 	private:
 		long m_RefCnt;
 		ServiceManagement::ServiceManager m_ServiceManager;
