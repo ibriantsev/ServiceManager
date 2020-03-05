@@ -4,26 +4,24 @@
 #include <cassert>
 
 #include "ServiceManager.h"
-/*
 #define _CRTDBG_MAP_ALLOC
-#define _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #include <stdlib.h>
 #include <crtdbg.h>
-*/
 
 int main(void) {
-	com::ServiceManager m;
-	
-	HRESULT hr = m.init();
-	assert(SUCCEEDED(hr));
+	HRESULT hr = E_UNEXPECTED;
+	{
+		model::com::ServiceManager m;
+		hr = m.init();
+		assert(SUCCEEDED(hr));
 
-	std::vector<std::wstring> result;
-	hr = m.enumerateServiceNames(result);
-	assert(SUCCEEDED(hr));
+		std::vector<model::ServiceInfo> result;
+		hr = m.enumerateServicesInfo(result);
+		assert(SUCCEEDED(hr));
 
-	for (auto s : result)
-		std::wcout << s << std::endl;
-
-	//_CrtDumpMemoryLeaks();
+		for (auto s : result)
+			std::wcout << s.m_ServiceName << '\t' << s.m_DisplayName << '\t' << s.m_ProcessId << std::endl;
+	}
+	_CrtDumpMemoryLeaks();
 	return hr;
 }

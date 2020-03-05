@@ -28,7 +28,7 @@ namespace com {
 	}
 
 	HRESULT ServiceInfoConverter::convertToVariant(const ServiceManagement::ServiceInfo& serviceInfo, VARIANT& variant) {
-    HRESULT hr;
+    HRESULT hr = E_UNEXPECTED;
 
 		IRecordInfo* pRecordInfo = nullptr;
 		getRecordFromGUID(__uuidof(TServiceInfo), &pRecordInfo);

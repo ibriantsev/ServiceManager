@@ -53,7 +53,7 @@ HRESULT __stdcall ServiceManagerObj::enumetateServicesInfo(SAFEARRAY **ppService
 	res = m_ServiceManager.enumerateServicesInfo(servicesInfo);
 	if (!res) return RPC_E_ACCESS_DENIED;
 	
-	CComSafeArray<VARIANT> result;
+	CComSafeArray<VARIANT> result(0UL);
 	for (auto& x : servicesInfo) {
 		HRESULT hr;
 		VARIANT variant;
