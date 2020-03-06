@@ -10,8 +10,7 @@
 namespace ServiceManagement {
 	/**
 	 * Stores service configuration parameters using constants specified in ServiceConstants.h
-	 * 
-	 * Can be used by ServiceConfigBuilder to build required configuration.
+	 *
 	 * Passing nullptr as parameter to constuctor creates configuration,
 	 * which does not change existing service configuration.
 	 */

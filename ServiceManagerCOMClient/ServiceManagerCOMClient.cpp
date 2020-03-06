@@ -1,27 +1,20 @@
-﻿#include <iostream>
-#include <vector>
-#include <string>
-#include <cassert>
+﻿#include <QApplication>
 
-#include "ServiceManager.h"
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
+#include "ServiceTableView.h"
+#include "ServiceTableController.h"
 
-int main(void) {
-	HRESULT hr = E_UNEXPECTED;
-	{
-		model::com::ServiceManager m;
-		hr = m.init();
-		assert(SUCCEEDED(hr));
+int main(int argc, char** argv) {
+  int rc = 0;
 
-		std::vector<model::ServiceInfo> result;
-		hr = m.enumerateServicesInfo(result);
-		assert(SUCCEEDED(hr));
+  QApplication app(argc, argv);
+  QWidget mainWindow;
 
-		for (auto s : result)
-			std::wcout << s.m_ServiceName << '\t' << s.m_DisplayName << '\t' << s.m_ProcessId << std::endl;
-	}
-	_CrtDumpMemoryLeaks();
-	return hr;
+  view::ServiceTableView* table = new view::ServiceTableView(&mainWindow);
+  controller::ServiceTableController serviceTableController(table);
+    
+  serviceTableController.refresh();
+  mainWindow.show();
+
+  rc = app.exec();
+  return rc;
 }

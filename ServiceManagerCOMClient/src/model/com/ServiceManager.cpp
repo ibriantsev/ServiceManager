@@ -1,7 +1,5 @@
 #include "ServiceManager.h"
 
-#include <iostream>
-
 namespace model {
   namespace com {
     ServiceManager::~ServiceManager(void) {
