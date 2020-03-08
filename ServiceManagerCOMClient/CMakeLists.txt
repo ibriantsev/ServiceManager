@@ -15,7 +15,7 @@ include_directories("${CMAKE_SOURCE_DIR}/includes/controller")
 include_directories("${CMAKE_SOURCE_DIR}/includes/view")
 include_directories("../ServiceManagerCOMObject/generated")
 
-file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/model/com/*.cpp" "${CMAKE_SOURCE_DIR}/src/controller/*.cpp" "${CMAKE_SOURCE_DIR}/src/view/*.cpp")
+file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/view/*.cpp" "${CMAKE_SOURCE_DIR}/src/model/com/*.cpp" "${CMAKE_SOURCE_DIR}/src/controller/*.cpp")
 
 add_executable (${PROJECT_NAME} "ServiceManagerCOMClient.cpp" ${SOURCES})
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)

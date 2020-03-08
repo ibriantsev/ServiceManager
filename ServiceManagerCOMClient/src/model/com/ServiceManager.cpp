@@ -38,7 +38,7 @@ namespace model {
 
       for (LONG i = 0; i < serviceNames.GetCount(); ++i) {
         TServiceInfo* pInfo = static_cast<TServiceInfo*>(serviceNames[i].pvRecord);
-        result.push_back(ServiceInfo(pInfo->m_ServiceName, pInfo->m_DisplayName, pInfo->m_ProcessId));
+        result.push_back(ServiceInfo(pInfo->m_ServiceName, pInfo->m_DisplayName, pInfo->m_Type, pInfo->m_CurrentState, pInfo->m_ProcessId));
       }
       return S_OK;
     }

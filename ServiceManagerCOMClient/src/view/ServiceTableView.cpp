@@ -2,13 +2,15 @@
 
 #include <QVBoxLayout>
 
+#include "ServiceConstantConverter.h"
+
 namespace view {
 	ServiceTableView::ServiceTableView(QWidget* parent = 0): QWidget(parent) {
 
-		m_ServiceTable = new QTableWidget(0, 3, this);
+		m_ServiceTable = new QTableWidget(0, 5, this);
 
 		QStringList labels;
-		labels << tr("Name") << tr("Display name") << tr("PID");
+		labels << tr("Name") << tr("Display name") << tr("Type") << tr("Current State") << tr("PID");
 		m_ServiceTable->setHorizontalHeaderLabels(labels);
 		
 		QVBoxLayout* layout = new QVBoxLayout;
@@ -27,6 +29,8 @@ namespace view {
 
 		m_ServiceTable->setItem(rowCnt, 0, new QTableWidgetItem(QString::fromStdWString(item.m_ServiceName)));
 		m_ServiceTable->setItem(rowCnt, 1, new QTableWidgetItem(QString::fromStdWString(item.m_DisplayName)));
-		m_ServiceTable->setItem(rowCnt, 2, new QTableWidgetItem(QString::number(item.m_ProcessId)));
+		m_ServiceTable->setItem(rowCnt, 2, new QTableWidgetItem(ServiceConstantConverter::convertServiceTypeToString(item.m_Type)));
+		m_ServiceTable->setItem(rowCnt, 3, new QTableWidgetItem(ServiceConstantConverter::convertServiceStateToString(item.m_CurrentState)));
+		m_ServiceTable->setItem(rowCnt, 4, new QTableWidgetItem(QString::number(item.m_ProcessId)));
 	}
 } // namespace view
