@@ -29,7 +29,7 @@ namespace ServiceManagement {
 				ServiceInfo info(lpServices[i].lpServiceName, 
 												 lpServices[i].lpDisplayName, 
 												 lpServices[i].ServiceStatusProcess.dwServiceType, 
-												 lpServices[i].ServiceStatusProcess.dwCurrentState, 
+												 ServiceState(lpServices[i].ServiceStatusProcess.dwCurrentState), 
 												 lpServices[i].ServiceStatusProcess.dwProcessId);
 
 				temp.push_back(info);

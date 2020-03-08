@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <windows.h>
 #include <winsvc.h>
 
 #ifdef UNICODE
@@ -22,6 +23,8 @@ namespace ServiceManagement {
 		FileSystemDriver   = SERVICE_FILE_SYSTEM_DRIVER,
 		Win32OwnProcess    = SERVICE_WIN32_OWN_PROCESS,
 		Win32ShareProcess  = SERVICE_WIN32_SHARE_PROCESS,
+		UserOwnProcess     = SERVICE_USER_OWN_PROCESS,
+		UserShareProcess   = SERVICE_USER_SHARE_PROCESS,
 		InteractiveProcess = SERVICE_INTERACTIVE_PROCESS,
 		NoChange           = SERVICE_NO_CHANGE,
 	};
@@ -41,5 +44,15 @@ namespace ServiceManagement {
 		Severe   = SERVICE_ERROR_SEVERE,
 		Critical = SERVICE_ERROR_CRITICAL,
 		NoChange = SERVICE_NO_CHANGE,
+	};
+	
+	enum class ServiceState : DWORD {
+		Stopped = SERVICE_STOPPED,
+		StartPending = SERVICE_START_PENDING,
+		StopPending = SERVICE_STOP_PENDING,
+		Running = SERVICE_RUNNING,
+		ContinuePending = SERVICE_CONTINUE_PENDING,
+		PausePending = SERVICE_PAUSE_PENDING,
+		Paused = SERVICE_PAUSED
 	};
 } // namespace ServiceManagement

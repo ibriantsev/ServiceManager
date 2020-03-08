@@ -1,8 +1,11 @@
 #include "ServiceInfoConverter.h"
 
 #include "Util.h"
+#include "ServiceConstantConverter.h"
 #include "IServiceManager.h"
 #include "GUIDS.c"
+
+#include <atlcomcli.h>
 
 namespace com {
 	HRESULT getRecordFromGUID(REFGUID typeUUID, IRecordInfo** pRecordInfo) {
@@ -30,6 +33,10 @@ namespace com {
 	HRESULT ServiceInfoConverter::convertToVariant(const ServiceManagement::ServiceInfo& serviceInfo, VARIANT& variant) {
     HRESULT hr = E_UNEXPECTED;
 
+		EServiceState serviceState;
+		hr = ServiceConstantConverter::convertServiceState(serviceInfo.m_CurrentState, serviceState);
+		if (FAILED(hr)) return hr;
+
 		IRecordInfo* pRecordInfo = nullptr;
 		getRecordFromGUID(__uuidof(TServiceInfo), &pRecordInfo);
 		
@@ -40,7 +47,7 @@ namespace com {
 		info->m_ServiceName = CComBSTR(serviceInfo.m_ServiceName.data()).Detach();
 		info->m_DisplayName = CComBSTR(serviceInfo.m_DisplayName.data()).Detach();
 		info->m_Type = serviceInfo.m_Type;
-		info->m_CurrentState = serviceInfo.m_CurrentState;
+		info->m_CurrentState = serviceState;
 		info->m_ProcessId = serviceInfo.m_ProcessId;
 
 		VariantInit(&variant);

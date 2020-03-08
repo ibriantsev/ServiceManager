@@ -18,10 +18,13 @@ set(HEADERS
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceManagerObj.h 
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceManagerObjFactory.h
     ${CMAKE_SOURCE_DIR}/includes/com/ServiceInfoConverter.h
+    ${CMAKE_SOURCE_DIR}/includes/com/ServiceConstantConverter.h
 )
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
-add_library(COMObjects STATIC ../util/Util.cpp ServiceInfoConverter.cpp ServiceManagerObj.cpp ServiceManagerObjFactory.cpp ${HEADERS})
+file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/util/*.cpp" "${CMAKE_SOURCE_DIR}/src/com/*.cpp")
+
+add_library(COMObjects STATIC ${SOURCES} ${HEADERS})
 
 target_sources(COMObjects PRIVATE ${MIDL_FILE} ${MIDL_OUTPUT})
 target_link_libraries(COMObjects debug ServiceManagement)

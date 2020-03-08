@@ -6,22 +6,33 @@ import "ocidl.idl";
 library ServiceManagement {
 	importlib("stdole32.tlb");
 	importlib("stdole2.tlb");
-
+	
+	[uuid(12ceaef9-7319-47dd-bf6e-ce01dc87e6ff)]
+	typedef enum EServiceState {
+		Stopped,
+		StartPending,
+		StopPending,
+		Running,
+		ContinuePending,
+		PausePending,
+		Paused
+	} EServiceState;
+	
 	[uuid(57973979-ae63-48df-a553-89d61ed1f099)]
 	struct TServiceInfo {
 		BSTR m_ServiceName;
 		BSTR m_DisplayName;
 		ULONG m_Type;
-		ULONG m_CurrentState;
+		EServiceState m_CurrentState;
 		ULONG m_ProcessId;
 	};
-
+	
 	[object, uuid(9490e8d9-ca97-4ffe-81f1-c6d125479c1f)]
 	interface IServiceManager : IUnknown {
 		HRESULT init();
 		HRESULT enumetateServicesInfo([out, retval] SAFEARRAY(VARIANT)* ppServices);
 	};
-
+	
 	[uuid(4fa8f5b0-f690-4152-90c4-32d67c26e4a8)]
 	coclass ServiceManagerObj {
 		[default] interface IServiceManager;

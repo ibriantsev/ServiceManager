@@ -77,12 +77,24 @@ extern "C"{
 /* library ServiceManagement */
 /* [version][uuid] */ 
 
+typedef /* [uuid] */  DECLSPEC_UUID("12ceaef9-7319-47dd-bf6e-ce01dc87e6ff") 
+enum EServiceState
+    {
+        Stopped	= 0,
+        StartPending	= ( Stopped + 1 ) ,
+        StopPending	= ( StartPending + 1 ) ,
+        Running	= ( StopPending + 1 ) ,
+        ContinuePending	= ( Running + 1 ) ,
+        PausePending	= ( ContinuePending + 1 ) ,
+        Paused	= ( PausePending + 1 ) 
+    } 	EServiceState;
+
 /* [uuid] */ struct  DECLSPEC_UUID("57973979-ae63-48df-a553-89d61ed1f099") TServiceInfo
     {
     BSTR m_ServiceName;
     BSTR m_DisplayName;
     ULONG m_Type;
-    ULONG m_CurrentState;
+    EServiceState m_CurrentState;
     ULONG m_ProcessId;
     } ;
 

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <objbase.h>
-#include <atlbase.h>
-#include <atlsafe.h>
 
 #include "Service.h"
 

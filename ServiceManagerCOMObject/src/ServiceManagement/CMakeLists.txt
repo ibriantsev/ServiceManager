@@ -6,4 +6,6 @@ set(HEADERS
     ${CMAKE_SOURCE_DIR}/includes/ServiceManagement/ServiceResult.h
 )
 
-add_library(ServiceManagement STATIC ServiceConfig.cpp Service.cpp ServiceManager.cpp ${HEADERS})
+file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/ServiceManagement/*.cpp")
+
+add_library(ServiceManagement STATIC ${SOURCES} ${HEADERS})
