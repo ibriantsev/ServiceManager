@@ -8,10 +8,10 @@ namespace controller {
 																								 view::ServiceTableView* const view)
 	: m_ServiceTableModel(model), m_ServiceTableView(view), m_ServiceManager() {
 		m_ServiceManager.init();
-
+		
 		QSortFilterProxyModel* proxyModel = new QSortFilterProxyModel(model); // create proxy
 		proxyModel->setSourceModel(model);
-
+		
 		view->setModel(proxyModel);
 	}
 	void ServiceTableController::refresh(void) {
