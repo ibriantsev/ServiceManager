@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace view {
+namespace model {
 	class ServiceConstantConverter {
 	public:
 		static std::wstring convertServiceTypeToString(ULONG type);

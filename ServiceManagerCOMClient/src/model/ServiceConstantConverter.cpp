@@ -4,7 +4,7 @@
 #include <vector>
 #include <QString>
 
-namespace view {
+namespace model {
 	std::wstring ServiceConstantConverter::convertServiceTypeToString(ULONG type) {
 		std::vector<std::wstring> acc;
 		

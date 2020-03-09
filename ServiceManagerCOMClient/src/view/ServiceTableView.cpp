@@ -28,10 +28,13 @@ namespace view {
 		
 		m_ServiceTable->setRowCount(rowCnt + 1);
 		
+		std::wstring serviceStateWStr = model::ServiceConstantConverter::convertServiceStateToString(item.m_CurrentState);
+		std::wstring serviceTypeWStr = model::ServiceConstantConverter::convertServiceTypeToString(item.m_Type);
+		
 		m_ServiceTable->setItem(rowCnt, 0, ServiceTableItemFactory::createServiceTableItem(item.m_ServiceName, Qt::AlignCenter));
 		m_ServiceTable->setItem(rowCnt, 1, ServiceTableItemFactory::createServiceTableItem(item.m_DisplayName, Qt::AlignVCenter));
-		m_ServiceTable->setItem(rowCnt, 2, ServiceTableItemFactory::createServiceTableItem(ServiceConstantConverter::convertServiceStateToString(item.m_CurrentState), Qt::AlignCenter));
+		m_ServiceTable->setItem(rowCnt, 2, ServiceTableItemFactory::createServiceTableItem(serviceStateWStr, Qt::AlignCenter));
 		m_ServiceTable->setItem(rowCnt, 3, ServiceTableItemFactory::createServiceTableItem(item.m_ProcessId, Qt::AlignCenter));
-		m_ServiceTable->setItem(rowCnt, 4, ServiceTableItemFactory::createServiceTableItem(ServiceConstantConverter::convertServiceTypeToString(item.m_Type), Qt::AlignVCenter));
+		m_ServiceTable->setItem(rowCnt, 4, ServiceTableItemFactory::createServiceTableItem(serviceTypeWStr, Qt::AlignVCenter));
 	}
 } // namespace view
