@@ -32,6 +32,7 @@ namespace model {
 	int ServiceTableModel::columnCount(const QModelIndex& parent) const {
 		return 5;
 	}
+	
 	QVariant ServiceTableModel::data(const QModelIndex& index, int role) const {
 		if (role == Qt::DisplayRole) {
 			ServiceInfo info = m_Data[index.row()];
@@ -61,6 +62,7 @@ namespace model {
 
 		return QVariant();
 	}
+	
 	void ServiceTableModel::setData(const std::vector<ServiceInfo>& data) {
 		layoutAboutToBeChanged();
 		m_Data = data;
