@@ -1,6 +1,7 @@
 ﻿#include <QApplication>
 #include <QVBoxLayout>
 
+#include "ServiceTableModel.h"
 #include "ServiceTableView.h"
 #include "ServiceTableController.h"
 
@@ -12,7 +13,8 @@ int main(int argc, char** argv) {
   mainWindow.setMinimumSize(800, 450);
 
   view::ServiceTableView* table = new view::ServiceTableView(&mainWindow);
-  controller::ServiceTableController serviceTableController(table);
+  model::ServiceTableModel* model = new model::ServiceTableModel(&mainWindow);
+  controller::ServiceTableController serviceTableController(model, table);
 
   QVBoxLayout* layout = new QVBoxLayout();
   layout->addWidget(table);
